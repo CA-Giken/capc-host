@@ -6,14 +6,14 @@ export = {cmd = "poetry export -f requirements.txt -o requirements.txt --without
 
 [tool.poetry]
 name = "capc_host"
-version = "0.1.0"
+version = "0.1.1"
 description = "CAPC Host server and message from client."
 authors = ["HiraiKyo <kyo.mikhael@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 
 [tool.poetry.scripts]
-host = "capc_host.server:main"
+capc-host = "capc_host.server:main"
 
 [tool.poetry.dependencies]
 python = "^3.8"

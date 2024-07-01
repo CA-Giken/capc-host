@@ -63,6 +63,10 @@ class SocketServer:
         return message_resp
 
 
-if __name__ == "__main__":
+def main() -> None:
     server = SocketServer()
     server.accept()
+
+
+if __name__ == "__main__":
+    main()
