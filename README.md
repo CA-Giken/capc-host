@@ -1,26 +1,23 @@
-# pyproject-boilerplate
+# CAPC-host
 
-Boilerplate for Python Project
-
-## Purpose
-
-- Type-safe
-- Good lint rules.
-- Well-developed with VSCode
-
-## Stacks
-
-- Poetry
-- Ruff
-- Mypy, Pydantic
-- Pytest
-
-## Structure
+CAPC Host server for docker environment.
 
 ## Installation
 
 ```sh
-poetry install
+pip install -r requirements.txt
+```
+
+## Run
+
+```sh
+python capc/main.py
+```
+
+## FOR PRODUCTION
+
+```sh
+poetry export -f requirements.txt -o requirements.txt --without-hashes
 ```
 
 ## References

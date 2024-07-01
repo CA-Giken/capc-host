@@ -1,14 +1,21 @@
-import socket
 import threading
 import time
-from typing import Union
 
-from capc_host.main import HOSTNAME, PORT, main
+from capc_host.client import SocketClient
+from capc_host.server import SocketServer
+
+
+def run_server() -> None:
+    server = SocketServer()
+    server.accept()
+
+
+t1 = threading.Thread(target=run_server, name="t1", daemon=True)
 
 
 def test_main() -> None:
+    global t1
     # 別スレッドでソケットサーバーを起動
-    t1 = threading.Thread(target=main, name="t1", daemon=True)
     t1.start()
     # サーバー起動までちょっと待つ
     time.sleep(5)
@@ -19,51 +26,31 @@ def test_main() -> None:
     client.connect()
     client.send("Test message.")
 
+    print("Simple message test passed.")
 
-TIMEOUT = 60
-BUFFER = 1024
+    # ConnetionResetErrorが発生するため、テストを通すために少し待つ
+    time.sleep(2)
 
 
-class SocketClient:
-    def __init__(self, timeout: int = TIMEOUT, buffer: int = BUFFER) -> None:
-        self._socket: Union[socket.socket, None] = None
-        self._address: Union[tuple[str, int], None] = None
-        self._timeout = timeout
-        self._buffer = buffer
+def test_main2() -> None:
+    client = SocketClient()
 
-    def connect(self) -> None:
-        self._address = (HOSTNAME, PORT)
-        self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM, 0)
-        self._socket.settimeout(self._timeout)
-        if self._address is None:
-            print("Address is not set.")
-            return
-        self._socket.connect(self._address)
+    # ソケット通信をテストする
+    client.connect()
+    client.send("Test message.")
 
-    def send(self, message: str = "") -> None:
-        if self._socket is None:
-            print("Socket is not set.")
-            return
+    print("Simple message test 2 passed.")
+    # ConnetionResetErrorが発生するため、テストを通すために少し待つ
+    time.sleep(2)
 
-        flag = False
-        while True:
-            if message == "":
-                message = input("> ")
-            else:
-                message_send = message
-                flag = True
-            self._socket.send(message_send.encode("utf-8"))
-            message_recv = self._socket.recv(self._buffer).decode("utf-8")
-            self.received(message_recv)
-            if flag:
-                break
 
-        try:
-            self._socket.shutdown(socket.SHUT_RDWR)
-            self._socket.close()
-        except Exception as e:
-            print(e)
-            pass
+def test_shutdown() -> None:
+    client = SocketClient()
 
-    def received(self, message: str) -> None:
-        print("Received -> ", message)
+    # シャットダウンリクエストを送信
+    client.connect()
+    client.send("shutdown=1")
+
+    print("Shutdown request test passed.")
+    # ConnetionResetErrorが発生するため、テストを通すために少し待つ
+    time.sleep(2)

@@ -1,6 +1,8 @@
 [tool.taskipy.tasks]
 test = {cmd = "pytest -s", help = "Run unit test."}
-main = {cmd = "python -m capc_host/main.py", help = "Run main module."}
+server = {cmd = "python capc_host/server.py", help = "Run server."}
+client = {cmd = "python capc_host/client.py", help = "Run client."}
+export = {cmd = "poetry export -f requirements.txt -o requirements.txt --without-hashes", help = "Export requirements.txt"}
 
 [tool.poetry]
 name = "capc_host"
