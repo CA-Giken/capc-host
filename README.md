@@ -2,22 +2,19 @@
 
 CAPC Host server for docker environment.
 
-## Installation
+## Installation & Run
 
 ```sh
-pip install -r requirements.txt
+sudo pip install git+https://github.com/CA-Giken/capc-host --break-system-packages
+sudo capc-host
 ```
 
-## Run
+# Client usage
 
-```sh
-python capc/main.py
-```
+```py
+from capc_host import client
 
-## FOR PRODUCTION
-
-```sh
-poetry export -f requirements.txt -o requirements.txt --without-hashes
+client.request_shutdown()
 ```
 
 ## References
