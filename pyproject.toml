@@ -1,9 +1,9 @@
 [tool.taskipy.tasks]
-test = {cmd = "dotenv --file envs/.env.development run -- pytest", help = "Run unit test."}
-dev-python = {cmd = "dotenv --file envs/.env.development run -- python", help = "Run python with dev environment."}
+test = {cmd = "pytest -s", help = "Run unit test."}
+main = {cmd = "python -m capc_host/main.py", help = "Run main module."}
 
 [tool.poetry]
-name = "example_pyproject"
+name = "capc_host"
 version = "0.1.0"
 description = ""
 authors = ["HiraiKyo <kyo.mikhael@gmail.com>"]
@@ -12,7 +12,6 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-python-dotenv = "^1.0.1"
 pydantic = "^2.7.4"
 
 [tool.poetry.group.dev.dependencies]
