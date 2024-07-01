@@ -6,18 +6,16 @@ from typing import Union
 
 from capc_host.responder import respond_action
 
-TIMEOUT = 60
+TIMEOUT = None
 BUFFER = 1024
 HOSTNAME = "localhost"
 PORT = 33010
 
 
 class SocketServer:
-    def __init__(
-        self, hostname: str = HOSTNAME, port: int = PORT, timeout: int = TIMEOUT, buffer: int = BUFFER
-    ) -> None:
+    def __init__(self, hostname: str = HOSTNAME, port: int = PORT, buffer: int = BUFFER) -> None:
         self._socket: Union[socket.socket, None] = None
-        self._timeout = timeout
+        self._timeout = None
         self._buffer = buffer
         self.address = (hostname, port)
         self.reconnectionCount = 0

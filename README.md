@@ -9,7 +9,7 @@ sudo pip install git+https://github.com/CA-Giken/capc-host --break-system-packag
 sudo capc-host
 ```
 
-# Client usage
+## Client usage
 
 ```py
 from capc_host import client
