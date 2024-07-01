@@ -52,6 +52,12 @@ class SocketClient:
         print("[Client] Received -> ", message)
 
 
+def request_shutdown() -> None:
+    client = SocketClient()
+    client.connect()
+    client.send("shutdown=1")
+
+
 if __name__ == "__main__":
     client = SocketClient()
     client.connect()
